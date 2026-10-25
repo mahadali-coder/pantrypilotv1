@@ -1,7 +1,7 @@
 # pantrypilotv1
 Repo for v1 of Pantry Pilot
 
-# PantryPilot 1.0
+# PantryPilot V1
 
 PantryPilot is a local-first household food inventory and waste-prevention prototype built with Python, Streamlit and SQLite. It helps people see what they have, decide what to use, plan simple meals, avoid duplicate shopping and record what gets used or discarded.
 
@@ -17,12 +17,13 @@ Priority labels and entered dates are reminders only. PantryPilot does not decid
 - **Explainable meal ranking:** generated recipe options are ranked locally using Use First stock, name/ID matches to pantry items, required missing ingredients, optional items and estimated time. Each option explains the factors behind its rank. Name matches do not confirm stock amounts or substitutions; review them.
 - **AI meal ideas:** users choose pantry ingredients and preferences, then consent to send only those selected names, quantities and preferences to OpenAI for generated recipe options. Results distinguish selected ingredients from possible pantry matches and additional ingredients, show steps and time, and can add needed ingredients to the shopping list. Users can optionally record a cooked meal and reduce selected stock using explicitly entered amounts in their inventory units.
 - **Shopping list:** add items manually or from missing meal essentials, check similar names against current inventory, optionally override a duplicate warning, merge repeated ingredients with compatible units, edit quantities and units, mark items purchased, and remove entries.
+- **Automatic out-of-stock restock:** when recorded use or a cooking log reduces an item to zero, PantryPilot adds the consumed amount and unit to the open shopping list in the same database transaction. A matching open list item is combined using compatible unit conversion. Discarding food does not automatically recommend buying it again; all suggested quantities remain editable.
 - **Purchase-to-pantry flow:** check off bought items, choose a storage location, then add them to inventory with today's purchase date in one step.
 - **Restock alerts:** set an optional per-item minimum quantity. Home shows items at or below their threshold and can add them to the shopping list. Thresholds use that item's own unit.
 - **Saved AI recipes and serving size:** request recipes for 1–8 servings, save generated recipes locally, and reopen or remove them later. Recipe amounts are proportionally scaled from the generated serving count; review quantities before cooking.
 - **Duplicate receipt guard:** the exact same receipt image cannot be committed twice. The app stores a one-way SHA-256 image fingerprint, not the receipt photo.
 - **Receipt reconciliation:** compare the receipt total with reviewed line amounts and an optional receipt-level discount. Mismatches and unknown values require acknowledgment; the app does not invent or distribute price differences. Reviewed line text and corrections are retained in local receipt history; the photo is not.
-- **Data integrity:** matching product batches with the same location, dates, priority and category combine only when their units can be converted. Different dates or incompatible units remain separate. Cooking and use/discard events update inventory and history atomically; partial use reduces recorded purchase value proportionally.
+- **Data integrity:** matching product batches with the same location, dates, priority and category combine only when their units can be converted. Different dates or incompatible units remain separate. Cooking and use/discard events update inventory and history atomically; repeated cooking-form submissions use a persistent operation ID so stock is deducted once. Partial use reduces recorded purchase value proportionally.
 - **Waste and use history:** record partial or full quantities used/discarded, choose a discard reason and view recent counts, reasons, meal logs and purchase values allocated from recorded prices. These recorded amounts are not claims of savings or impact.
 - **Local value measures:** count local browser sessions, active days, recommended meals logged as cooked, and recorded discard events over adjacent periods. No data leaves the device for these measures. They describe recorded activity only and do not establish retention across people or prove reduced household waste.
 - **Data ownership:** download the current inventory as CSV or the complete SQLite database as a backup; restore a validated backup from the same screen after explicit confirmation. A pre-restore copy is saved beside the active database.
@@ -34,7 +35,7 @@ Priority labels and entered dates are reminders only. PantryPilot does not decid
 - **Home:** live inventory and attention counts, food-attention reminders, per-item restock alerts, recent persisted activity, and working shortcuts to add or scan groceries, generate recipes, and open the shopping list.
 - **My Kitchen:** quick multi-item entry with smart locations; detailed single-item entry; consent-based receipt preview, scanning and review; search, filters and sorting; per-item date-label scanning; editing, partial use/discard tracking, incorrect-entry removal, CSV export, and full database backup.
 - **Discover Meals:** consent-based AI recipe generation from selected pantry items, dietary preferences, time and serving size; save or reopen generated recipes; add missing ingredients to shopping; optionally log cooking and user-entered stock usage.
-- **Shopping List:** add or combine items, detect likely pantry matches, check off purchases, transfer checked items into inventory with a location and purchase date, and remove list items.
+- **Shopping List:** add or combine items, automatic restock after recorded use empties stock, detect likely pantry matches, check off purchases, transfer checked items into inventory with a location and purchase date, and remove list items.
 - **My Impact:** review recorded use/discard events and reasons, recorded values, meal logs, receipt totals and purchase history. These are based only on recorded data.
 
 ## Requirements
