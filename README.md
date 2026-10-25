@@ -1,7 +1,7 @@
 # pantrypilotv1
 Repo for v1 of Pantry Pilot
 
-# PantryPilot 2.0
+# PantryPilot 1.0
 
 PantryPilot is a local-first household food inventory and waste-prevention prototype built with Python, Streamlit and SQLite. It helps people see what they have, decide what to use, plan simple meals, avoid duplicate shopping and record what gets used or discarded.
 
