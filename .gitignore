@@ -1,0 +1,15 @@
+.venv/
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.db
+*.db-*
+*.sqlite*
+pantrypilot.db
+.DS_Store
+.coverage
+htmlcov/
